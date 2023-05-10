@@ -1,0 +1,106 @@
+.botonflecha{
+    width: 100% !important;
+}
+
+.pcenter {
+    text-align: center;
+    font-size: x-small;
+  }
+
+.infocont{
+    display: flex;
+    align-items: center;
+}
+
+.botonCarrusel{
+    border: none;
+    opacity: 0.5;
+    background-color: #F4F3EF;
+}
+
+.botonsort{
+    width: 15%;
+}
+
+.video{
+    width: auto;
+    height: auto;
+    text-align: center;
+}
+.video-responsive {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    margin-bottom: 1%;
+}
+
+.video-responsive iframe{
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 80%;
+    height: 100%;
+}
+
+.videoscarrusel{
+    font-size: x-small;
+    text-align: justify;
+}
+
+.imagen{
+    width: 100%;
+    text-align: center;
+}
+
+.alinearcentro{
+    text-align: center;
+    display: block;
+}
+
+.barrabus{
+    margin-bottom: 1%;
+    height: 5%;
+}
+
+.inputbus{
+    height: 90% !important;
+    width: 65%;
+}
+
+.btnbus{
+    width: 15%;
+    background-color: #00335D;
+    border-color: #00335D;
+    font-size: 80% !important;
+    color: #F4F3EF !important;
+}
+
+.contenido{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 2%;
+}
+
+.fontnegrita{
+    font-weight: bold;
+}
+
+.btnregresar{
+    background-color: #F4F3EF;
+    border-color: #F4F3EF;
+}
+
+.tarjeta{
+    border-radius: 0% !important; 
+}
+
+.borde-imagen{
+    border: 5px solid #00335D !important;
+}
+  
+@media screen and (max-width: 480px) {
+    .contenido{
+        grid-template-columns: 1fr 1fr;
+    }
+}

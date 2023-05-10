@@ -1,6 +1,9 @@
 package com.universales.videoapi.dto;
 
 import java.util.Date;
+
+import com.universales.videoapi.entity.AgrupadorVideo;
+
 import lombok.Data;
 @Data
 public class VideoDto {
@@ -15,6 +18,7 @@ public class VideoDto {
 	private Date grabacionFecha;
 	private String modificacionUsuario;
 	private Date modificacionFecha;
-	private int idAgrupadorVideo;
+	private AgrupadorVideo agrupadorVideo;
 	private String enlace;
+	private String tags;
 }

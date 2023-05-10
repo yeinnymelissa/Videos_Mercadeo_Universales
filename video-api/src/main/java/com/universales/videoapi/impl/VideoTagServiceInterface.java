@@ -1,6 +1,7 @@
 package com.universales.videoapi.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,11 +15,17 @@ import com.universales.videoapi.dto.VideoTagDto;
 import com.universales.videoapi.entity.Video;
 
 @RestController
-@RequestMapping("/tags")
+@RequestMapping("/videos-api/tags")
 @CrossOrigin
 public interface VideoTagServiceInterface {
 	@GetMapping("/obtenerVideos/{tag}")
 	public List<Video> obtenerVideos(@PathVariable("tag") String tag);
+	
+	@GetMapping("/obtenerVideos2/{tag}")
+	public List<Map<String, Object>> obtenerVideos2(@PathVariable("tag") String tag);
+	
+	@GetMapping("/obtenerVideosId/{id}")
+	public List<String> obtenerVideosId(@PathVariable("id") int id);
 	
 	@PostMapping("/guardarTag")
 	public void guardarVideo(@RequestBody VideoTagDto tag);

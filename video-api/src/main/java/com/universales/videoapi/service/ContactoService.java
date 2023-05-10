@@ -19,7 +19,7 @@ public class ContactoService {
 	JdbcTemplate jdbcTemplate;
 	
 	public List<Map<String, Object>> obtenerContacto(String val, String val2){
-		String query = "SELECT * FROM DBASEGUNI.TCLAVES WHERE COLUMNA = :val AND CODIGO = :val2";
+		String query = "SELECT * FROM TCLAVES WHERE COLUMNA = :val AND CODIGO = :val2";
 		
 		SqlParameterSource sps = new MapSqlParameterSource()
 				.addValue("val", val)
@@ -29,7 +29,7 @@ public class ContactoService {
 	}
 	
 	public void actualizarContacto(String val, String val2, String valor){
-		String query = "UPDATE DBASEGUNI.TCLAVES SET DESCRIP=:valor WHERE COLUMNA = :val AND CODIGO = :val2";
+		String query = "UPDATE TCLAVES SET DESCRIP=:valor WHERE COLUMNA = :val AND CODIGO = :val2";
 		
 		SqlParameterSource sps = new MapSqlParameterSource()
 				.addValue("val", val)

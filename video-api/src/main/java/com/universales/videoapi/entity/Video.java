@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.Data;
@@ -52,8 +54,9 @@ public class Video implements Serializable{
 	@Column(name="MODIFICACION_FECHA")
 	private Date modificacionFecha;
 	
-	@Column(name="ID_AGRUPADOR_VIDEO")
-	private int idAgrupadorVideo;
+	@ManyToOne
+	@JoinColumn(name="ID_AGRUPADOR_VIDEO")
+	private AgrupadorVideo agrupadorVideo;
 	
 	@Column(name="ENLACE")
 	private String enlace;

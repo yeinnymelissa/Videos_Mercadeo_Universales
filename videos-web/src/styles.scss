@@ -1,0 +1,67 @@
+
+@import "../node_modules/bootstrap/scss/bootstrap.scss";
+
+@import '../src/assets/scss/paper-dashboard/variables';
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: $font-family-Baloo }
+
+.pi {
+  font-family: 'primeicons' !important;
+}
+
+.button-standar {
+  background-color: $card-subtitle-orange; 
+  color: whitesmoke; 
+  width: 100%;
+}
+
+.form-full-width {
+  width: 100%;
+}
+
+.button-mini {
+  background-color:#db1449; 
+  color: whitesmoke;
+  float:right ;
+}
+
+.mat-mini-fab{
+  background-color: #f85b00 !important;
+  float: right;
+  right: 1.2%;
+  top: -1.5em;
+  z-index: 1;
+}
+
+.title-card {
+  font-size: xx-large;
+  padding-top: 2%;
+}
+
+.arrow-menu {
+  display: block;
+  position: absolute;
+  top: 50%;
+  right: -20px;
+  transform: translateY(-50%)
+}
+
+a{
+  text-decoration: none !important;
+}
+
+input,textarea ,th, tr, option, select,span{
+  font-family: 'Baloo Thambi 2', cursive !important; 
+}
+
+.close-btn {
+  float: right;
+  text-decoration: none !important;
+  cursor: pointer;
+}
+
+.logo{
+  background-color: #F4F3EF;
+}

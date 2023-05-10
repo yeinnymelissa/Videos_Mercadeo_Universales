@@ -1,5 +1,7 @@
 package com.universales.videoapi.ws;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,25 +9,37 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.universales.videoapi.dto.VideoDto;
+import com.universales.videoapi.entity.AgrupadorVideo;
 import com.universales.videoapi.entity.Video;
 import com.universales.videoapi.entity.VideoTag;
 import com.universales.videoapi.impl.VideoServiceInterface;
+import com.universales.videoapi.repository.AgrupadorVideoRepository;
 import com.universales.videoapi.repository.VideoRepository;
 import com.universales.videoapi.repository.VideoTagRepository;
+import com.universales.videoapi.service.VideoService;
+import com.universales.videoapi.service.VideoTagService;
 
 
 @Component
 public class VideoWS implements VideoServiceInterface{
+	@Autowired
+	AgrupadorVideoRepository avr;
 	
 	@Autowired
 	VideoRepository vr;
 	
 	@Autowired
 	VideoTagRepository vtr;
+	
+	@Autowired
+	VideoTagService vts;
+	
+	@Autowired
+	VideoService vs;
 
 	@Override
 	public List<Video> obtenerVideosOrdenados() {
-		return vr.findByEstadoOrderByGrabacionFechaAsc('A');
+		return vr.findByEstadoOrderByGrabacionFechaDesc('A');
 	}
 
 	@Override
@@ -37,12 +51,22 @@ public class VideoWS implements VideoServiceInterface{
 		vid.setDescripcion(video.getDescripcion());
 		vid.setEstado(video.getEstado());
 		vid.setGrabacionUsuario(video.getGrabacionUsuario());
-		vid.setGrabacionFecha(video.getGrabacionFecha());
-		vid.setModificacionUsuario(video.getModificacionUsuario());
-		vid.setModificacionFecha(video.getModificacionFecha());
-		vid.setIdAgrupadorVideo(video.getIdAgrupadorVideo());
+        Date date = new Date();
+		vid.setGrabacionFecha(date);
+		vid.setAgrupadorVideo(video.getAgrupadorVideo());
 		vid.setEnlace(video.getEnlace());
 		vr.save(vid);
+		if(!video.getTags().equals("") && video.getTags() != null) {
+			String[] items = video.getTags().split(";");
+			for (String item : items) {
+				if(item != null) {
+					VideoTag tag = new VideoTag();
+					tag.setIdVideo(vid.getIdVideo());
+					tag.setNombreTag(item);
+					vtr.save(tag);
+				}
+			}
+		}
 	}
 
 	@Override
@@ -54,13 +78,23 @@ public class VideoWS implements VideoServiceInterface{
 			vid.get().setNombre(video.getNombre());
 			vid.get().setDescripcion(video.getDescripcion());
 			vid.get().setEstado(video.getEstado());
-			vid.get().setGrabacionUsuario(video.getGrabacionUsuario());
-			vid.get().setGrabacionFecha(video.getGrabacionFecha());
 			vid.get().setModificacionUsuario(video.getModificacionUsuario());
-			vid.get().setModificacionFecha(video.getModificacionFecha());
-			vid.get().setIdAgrupadorVideo(video.getIdAgrupadorVideo());
+	        Date date = new Date();
+			vid.get().setModificacionFecha(date);
+			vid.get().setAgrupadorVideo(video.getAgrupadorVideo());
 			vid.get().setEnlace(video.getEnlace());
 			vr.save(vid.get());
+			if(!video.getTags().equals("") && video.getTags() != null) {
+				String[] items = video.getTags().split(";");
+				for (String item : items) {
+					if(item != null) {
+						VideoTag tag = new VideoTag();
+						tag.setIdVideo(vid.get().getIdVideo());
+						tag.setNombreTag(item);
+						vtr.save(tag);
+					}
+				}
+			}
 			
 		}
 	}
@@ -68,6 +102,32 @@ public class VideoWS implements VideoServiceInterface{
 	@Override
 	public List<VideoTag> obtenerVideosTag() {
 		return vtr.findAll();
+	}
+
+	@Override
+	public List<Video> obtenerTodosOrdenados() {
+		return vr.findAll();
+	}
+
+	@Override
+	public Video obtenerVideoPorId(Integer id) {
+		return vr.findByIdVideoEquals(id);
+	}
+
+	@Override
+	public boolean eliminarPorId(int id) {
+		vts.eliminarPorIdVideo(id);
+		return true;
+	}
+
+	@Override
+	public List<Video> obtenerPorAgrupador(Integer id) {
+		Optional<AgrupadorVideo> ag = avr.findById(id);
+		if(ag.isPresent()) {
+			return vr.findByAgrupadorVideoOrderByGrabacionFechaDesc(ag.get());
+		}
+		
+		return new ArrayList<>();
 	}
 
 }

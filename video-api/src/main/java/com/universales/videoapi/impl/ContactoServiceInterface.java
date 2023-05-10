@@ -15,7 +15,7 @@ import com.universales.videoapi.dto.ContactoDto;
 
 
 @RestController
-@RequestMapping("/contacto")
+@RequestMapping("/videos-api/contacto")
 @CrossOrigin
 public interface ContactoServiceInterface {
 	@GetMapping("/telefono")

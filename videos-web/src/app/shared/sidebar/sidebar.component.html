@@ -1,0 +1,49 @@
+<div class="sidebar-wrapper">
+  <div class="logo">
+    <a href="dashboard" class="simple-text logo-normal">
+      <div class="logo">
+        <img src="assets/img/webinars.png" alt="seguni">
+      </div>
+    </a>
+  </div>
+ <hr>
+  <div id="accordion">
+    <div class="panel">
+      <ul class="nav">
+        <li *ngFor="let menuItem of menus" 
+        (click)="activateClass(menuItem,menus)"
+         routerLinkActive="active"
+         [ngClass]="{'active': menuItem.active}">
+          <a [routerLink]="[menuItem.route]" *ngIf="!isSubMenu(menuItem.childs)">
+            <i class=" {{menuItem.icon}}"></i>
+            <p>{{menuItem.name}}</p>
+          </a>
+
+          
+          <a *ngIf="isSubMenu(menuItem.childs)" data-toggle="collapse"
+           data-bs-toggle="collapse" 
+           attr.data-bs-target="#{{menuItem.route}}" attr.aria-controls="{{menuItem.route}}"
+           data-parent="#accordion" aria-expanded="false">
+            <i class=" {{menuItem.icon}}"></i>
+            <p>{{menuItem.name}}</p>
+            <div class="arrow-menu"><i class="fi fi-rr-angle-small-right"></i></div>
+          </a>
+
+          <ul style="list-style-type:none;" id="{{menuItem.route}}" class="collapse in">
+            <li  
+            *ngFor="let smenu of menuItem.childs"
+            (click)="activateClass(smenu,menuItem.childs)"
+            [ngClass]="{'active': smenu.active}">
+              <a [routerLink]="[smenu.route]">
+                <i class="{{smenu.icon}}"></i>
+                <p>{{smenu.name}}</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+
+    </div>
+  </div>
+</div>
