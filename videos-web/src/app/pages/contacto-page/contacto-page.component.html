@@ -1,23 +1,37 @@
-<div class="container">
-    <div class="row">
-        <div class="col-7">
-            <img src="assets/img/edificio.jpg" alt="seguni">
-        </div>
-        <div class="col-5">
-            <h1><strong>Contáctanos</strong></h1>
-            <p>Ponte en contacto con nosotros por la vía que prefieras, estaremos gustosos de atender tu comunicación.</p>
-            
+<div class="container-fluid">
+    <div class="card card-user border-top-avatar shadow mb-4">
+        <div class="card-body">
             <div class="row">
-                <p class="pi pi-phone col-1"></p>
-                <p class="col"><strong>Telefono</strong> {{telefono}}</p>
-            </div>
-            <div class="row">
-                <p class="pi pi-whatsapp col-1"></p>
-                <p class="col"><strong>Whatsapp</strong> {{whatsapp}}</p>
-            </div>
-            <div class="row">
-                <p class="pi pi-envelope col-1"></p>
-                <p class="col"><strong>Correo</strong> {{correo}}</p>
+                <div class="col-lg-8 col-md-8 col-sm-8">
+                    <img src="assets/img/edificio.jpg" alt="seguni" style="border-radius: 25px;">
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 ">
+                    <div class="pad-bloque">
+                        <h1 class="centro"><strong>Contáctanos</strong></h1>
+                        <p>Ponte en contacto con nosotros por la vía que prefieras, estaremos gustosos de atender tu
+                            comunicación.
+                        </p>
+                        <div class="centro-div">
+                            <div>
+
+                                <div class="row">
+                                    <p class="pi pi-phone col-1"></p>
+                                    <p class="col"> {{telefono}}</p>
+                                </div>
+                                <div class="row">
+                                    <p class="pi pi-whatsapp col-1"></p>
+                                    <p class="col"> {{whatsapp}}</p>
+                                </div>
+                                <div class="row">
+                                    <p class="pi pi-envelope col-1"></p>
+                                    <p class="col">{{correo}}</p>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
             </div>
         </div>
     </div>

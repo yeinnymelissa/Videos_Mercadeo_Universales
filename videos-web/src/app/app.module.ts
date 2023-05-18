@@ -19,6 +19,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table'; 
 import { MatPaginatorModule} from '@angular/material/paginator'; 
 import { MAT_DATE_LOCALE, DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 /* PRIMENG */
@@ -31,11 +32,9 @@ import {ConfirmationService} from 'primeng/api';
 import { AppComponent } from './app.component';
 import { StyleClassModule } from 'primeng/styleclass';
 
-import { AppExampleComponent } from '../app/pages/app-example/app-example.component';
 import { FooterModule } from './shared/footer/footer.module';
 import { NavbarModule } from './shared/navbar/navbar.module';
 import { SidebarModule } from './shared/sidebar/sidebar.module';
-import { UserComponent } from './pages/user/user.component';
 import {TableModule} from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { VideosComponent } from './pages/videos/videos.component';
@@ -43,11 +42,18 @@ import { AgrupadoresComponent } from './pages/agrupadores/agrupadores.component'
 import { TreeSelectModule } from 'primeng/treeselect';
 import { ChipsModule } from 'primeng/chips';
 import { CardModule } from 'primeng/card';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { FieldsetModule } from 'primeng/fieldset';
+import { DividerModule } from 'primeng/divider';
+import { DropdownModule } from 'primeng/dropdown';
 
 import { ContactosComponent } from './pages/contactos/contactos.component';
 import { WebinarComponent } from './pages/webinar/webinar.component';
 import { BuscarComponent } from './pages/buscar/buscar.component';
 import { ContactoPageComponent } from './pages/contacto-page/contacto-page.component';
+import { FormularioVideoComponent } from './pages/dialogs/formulario-video/formulario-video.component';
+import { FormularioAgrupadorComponent } from './pages/dialogs/formulario-agrupador/formulario-agrupador.component';
+import { FormularioContactoComponent } from './pages/dialogs/formulario-contacto/formulario-contacto.component';
 
 const MY_FORMATS = {
   parse: {
@@ -64,14 +70,15 @@ const MY_FORMATS = {
 @NgModule({
   declarations: [
     AppComponent,
-    AppExampleComponent,
-    UserComponent,
     VideosComponent,
     AgrupadoresComponent,
     ContactosComponent,
     WebinarComponent,
     BuscarComponent,
-    ContactoPageComponent
+    ContactoPageComponent,
+    FormularioVideoComponent,
+    FormularioAgrupadorComponent,
+    FormularioContactoComponent
     
   ],
   imports: [
@@ -97,13 +104,18 @@ const MY_FORMATS = {
     ChipsModule,
     StyleClassModule,
     CardModule,
+    InputTextareaModule,
+    FieldsetModule,
+    DividerModule,
+    DropdownModule,
     /* material*/
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
     MatButtonModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatDialogModule
     ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AppInterceptor, multi: true },

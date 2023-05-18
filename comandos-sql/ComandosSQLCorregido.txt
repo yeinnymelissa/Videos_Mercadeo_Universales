@@ -1,0 +1,80 @@
+alter session set "_ORACLE_SCRIPT"=true;  
+create user MERCADEO_VIDEO identified by MERCADEO_VIDEO;
+GRANT ALL PRIVILEGES TO MERCADEO_VIDEO;
+
+drop sequence MERCADEO_VIDEO.SEC_VIDEOS;
+drop table MERCADEO_VIDEO.VIDEO;
+CREATE TABLE "MERCADEO_VIDEO"."VIDEO" 
+(	"ID_VIDEO" NUMBER NOT NULL ENABLE, 
+"DURACION" NUMBER NOT NULL ENABLE, 
+"EXPOSITOR" VARCHAR2(500 BYTE) NOT NULL ENABLE, 
+"NOMBRE" VARCHAR2(500 BYTE) NOT NULL ENABLE, 
+"DESCRIPCION" CLOB, 
+"ESTADO" CHAR(1 BYTE) NOT NULL ENABLE, 
+"GRABACION_USUARIO" VARCHAR2(20 BYTE) NOT NULL ENABLE, 
+"GRABACION_FECHA" DATE NOT NULL ENABLE, 
+"MODIFICACION_USUARIO" VARCHAR2(20 BYTE), 
+"MODIFICACION_FECHA" DATE, 
+"ID_AGRUPADOR_VIDEO" NUMBER NOT NULL ENABLE, 
+"ENLACE" CLOB, 
+ CONSTRAINT "VIDEO_PK" PRIMARY KEY ("ID_VIDEO")
+ ENABLE
+);
+create sequence MERCADEO_VIDEO.SEC_VIDEOS;
+comment on table "MERCADEO_VIDEO"."VIDEO" is 'Tabla que guarda los videos de los webinars.';
+comment on column "MERCADEO_VIDEO"."VIDEO"."ID_VIDEO" is 'Identificador unico de la tabla.';
+comment on column "MERCADEO_VIDEO"."VIDEO"."DURACION" is 'Numero que indica los minutos que dura el video.';
+comment on column "MERCADEO_VIDEO"."VIDEO"."EXPOSITOR" is 'Nombre del expositor del webinar.';
+comment on column "MERCADEO_VIDEO"."VIDEO"."NOMBRE" is 'Nombre del webinar.';
+comment on column "MERCADEO_VIDEO"."VIDEO"."DESCRIPCION" is 'Descripcion del webinar.';
+comment on column "MERCADEO_VIDEO"."VIDEO"."ESTADO" is 'Indicador de si el video esta activo(A) o inactivo(I).';
+comment on column "MERCADEO_VIDEO"."VIDEO"."GRABACION_USUARIO" is 'Guarda el usuario que añadio el video.';
+comment on column "MERCADEO_VIDEO"."VIDEO"."GRABACION_FECHA" is 'Guarda la fecha en la que se añadio el video.';
+comment on column "MERCADEO_VIDEO"."VIDEO"."MODIFICACION_USUARIO" is 'Guarda el usuario que modifico el video por ultima vez.';
+comment on column "MERCADEO_VIDEO"."VIDEO"."MODIFICACION_FECHA" is 'Guarda la fecha en la que se modifico el video por ultima vez.';
+comment on column "MERCADEO_VIDEO"."VIDEO"."ID_AGRUPADOR_VIDEO" is 'Guarda el id del agrupador de video.';
+comment on column "MERCADEO_VIDEO"."VIDEO"."ENLACE" is 'Contiene el enlace al video para la visualizacion del webinar.';
+
+drop sequence MERCADEO_VIDEO.SEC_AGRUPADOR;
+drop table MERCADEO_VIDEO.AGRUPADOR_VIDEO;
+
+CREATE TABLE "MERCADEO_VIDEO"."AGRUPADOR_VIDEO" 
+(	"ID_AGRUPADOR" NUMBER NOT NULL ENABLE, 
+"NOMBRE" VARCHAR2(500 BYTE) NOT NULL ENABLE, 
+"ESTADO" CHAR(1 BYTE) NOT NULL ENABLE, 
+"GRABACION_USUARIO" VARCHAR2(20 BYTE) NOT NULL ENABLE, 
+"GRABACION_FECHA" DATE NOT NULL ENABLE, 
+"MODIFICACION_USUARIO" VARCHAR2(20 BYTE), 
+"MODIFICACION_FECHA" DATE, 
+ CONSTRAINT "AGRUPADOR_VIDEO_PK" PRIMARY KEY ("ID_AGRUPADOR") ENABLE
+) ;
+create sequence MERCADEO_VIDEO.SEC_AGRUPADOR;
+comment on table "MERCADEO_VIDEO"."AGRUPADOR_VIDEO" is 'Tabla que guarda los agrupadores de video.';
+comment on column "MERCADEO_VIDEO"."AGRUPADOR_VIDEO"."ID_AGRUPADOR" is 'Identificador unico de la tabla.';
+comment on column "MERCADEO_VIDEO"."AGRUPADOR_VIDEO"."NOMBRE" is 'Nombre del agrupador de video.';
+comment on column "MERCADEO_VIDEO"."AGRUPADOR_VIDEO"."ESTADO" is 'Estado del agrupador de video.';
+comment on column "MERCADEO_VIDEO"."AGRUPADOR_VIDEO"."GRABACION_USUARIO" is 'Guarda el usuario que añadio el agrupador de video.';
+comment on column "MERCADEO_VIDEO"."AGRUPADOR_VIDEO"."GRABACION_FECHA" is 'Guarda la fecha en la que se añadio el agrupador de video.';
+comment on column "MERCADEO_VIDEO"."AGRUPADOR_VIDEO"."MODIFICACION_USUARIO" is 'Guarda el usuario que modifico el agrupador de video por ultima vez.';
+comment on column "MERCADEO_VIDEO"."AGRUPADOR_VIDEO"."MODIFICACION_FECHA" is 'Guarda la fecha en la que se modifico el agrupador de video por ultima vez.';
+
+drop sequence MERCADEO_VIDEO.SEC_VTAGS;
+drop table MERCADEO_VIDEO.VIDEO_TAG;
+
+ CREATE TABLE "MERCADEO_VIDEO"."VIDEO_TAG" 
+(	"ID" NUMBER NOT NULL ENABLE, 
+"ID_VIDEO" NUMBER NOT NULL ENABLE, 
+"NOMBRE_TAG" VARCHAR2(500 BYTE) NOT NULL ENABLE, 
+ CONSTRAINT "VIDEO_TAG_PK" PRIMARY KEY ("ID")
+ ENABLE
+) ;
+create sequence MERCADEO_VIDEO.SEC_VTAGS;
+comment on table "MERCADEO_VIDEO"."VIDEO_TAG" is 'Tabla que guarda la relacion de los videos con un tag.';
+comment on column "MERCADEO_VIDEO"."VIDEO_TAG"."ID" is 'Identificador unico de la tabla.';
+comment on column "MERCADEO_VIDEO"."VIDEO_TAG"."ID_VIDEO" is 'Identificador que hace referencia a un video.';
+comment on column "MERCADEO_VIDEO"."VIDEO_TAG"."NOMBRE_TAG" is 'Nombre del tag.';
+
+
+create public synonym VIDEO_TAG for MERCADEO_VIDEO.VIDEO_TAG;
+create public synonym VIDEO for MERCADEO_VIDEO.VIDEO;
+create public synonym TCLAVES for DBASEGUNI.T_CLAVES;

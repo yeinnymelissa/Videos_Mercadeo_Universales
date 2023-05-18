@@ -1,7 +1,7 @@
 
 export const environment = {
   production: false,
-  serviceId: 2083,
+  serviceId: 2143,
   urlLogin: 'https://localhost/logout',
   navBarStatic: false,
   extendedMenu: false,

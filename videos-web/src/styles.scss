@@ -65,3 +65,30 @@ input,textarea ,th, tr, option, select,span{
 .logo{
   background-color: #F4F3EF;
 }
+.border-top-avatar {
+
+  border-top: .25rem solid $warning-color !important;
+  
+}
+
+.border-top-img {
+
+  border-top: .25rem solid $bluebi !important;
+ 
+}
+
+.button-ac {
+  background-color:#00335D; 
+  color: whitesmoke;
+  float:right ;
+}
+
+:host ::ng-deep .p-dropdown {
+
+  width: 100% !important;
+
+}
+
+.back-azul{
+  background-color:#00335D; 
+}

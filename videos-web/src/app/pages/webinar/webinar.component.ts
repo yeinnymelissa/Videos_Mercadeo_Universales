@@ -25,6 +25,7 @@ export class WebinarComponent implements OnInit{
   elementosVisibles: any[]
   paginaActual: number = 0;
   paginasTotales: number = 0;
+  
   constructor(private ruta:ActivatedRoute, private genericService:GenericApiService, public sanitizer: DomSanitizer){
     this.videos = [];
     this.videosCarousel = []
@@ -80,8 +81,7 @@ export class WebinarComponent implements OnInit{
         (res: any) => {
           let tmp:any = document.getElementById("pantalla");
           tmp.innerHTML = ''
-          let tmp2:any = document.getElementById("informacion");
-          tmp2.innerHTML = ''
+          this.videoActual = null
           this.videos = res
           this.colocarVideos()
         }
@@ -108,12 +108,6 @@ export class WebinarComponent implements OnInit{
     if(this.videoActual){
       let vid:any = document.getElementById("pantalla");
       vid.innerHTML = '<iframe style="position: absolute; top:0; left: 0; width: 100%; height: 100%;" src="'+this.videoActual.enlace+'" frameborder="0" allowfullscreen></iframe>'
-      let tmp:any = document.getElementById("informacion");
-      tmp.innerHTML = '<h6>WEBINARS UNIVERSALES</h6>'
-                      + '<h1><strong>'+this.videoActual.nombre+'</strong></h1>'
-                      + '<p>'+this.videoActual.descripcion+'</p>'
-                      + '<p><strong>Expositor '+this.videoActual.expositor+'</strong></p>'
-                      + '<p><strong>Duración '+this.videoActual.duracion+' min</strong></p>'
     }
 
   }
@@ -221,8 +215,7 @@ export class WebinarComponent implements OnInit{
       (res: any) => {
         let tmp:any = document.getElementById("pantalla");
         tmp.innerHTML = ''
-        let tmp2:any = document.getElementById("informacion");
-        tmp2.innerHTML = ''
+        this.videoActual = null
         this.videos = res
         this.colocarVideos()
       }

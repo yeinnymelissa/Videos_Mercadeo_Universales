@@ -1,7 +1,7 @@
 
 export const environment = {
     production: true,
-    serviceId: 2083,
+    serviceId: 2143,
     urlLogin: 'https://dev.universales.com/logout',
     navBarStatic: false,
     extendedMenu: false,

@@ -15,7 +15,7 @@
 .botonCarrusel{
     border: none;
     opacity: 0.5;
-    background-color: #F4F3EF;
+    background-color: transparent !important;
 }
 
 .botonsort{
@@ -73,7 +73,7 @@
     background-color: #00335D;
     border-color: #00335D;
     font-size: 80% !important;
-    color: #F4F3EF !important;
+    color: whitesmoke !important;
 }
 
 .contenido{
@@ -87,8 +87,7 @@
 }
 
 .btnregresar{
-    background-color: #F4F3EF;
-    border-color: #F4F3EF;
+    color: #00335D;
 }
 
 .tarjeta{
@@ -97,10 +96,19 @@
 
 .borde-imagen{
     border: 5px solid #00335D !important;
+    border-radius: 10px;
+}
+
+.pad-img{
+    padding: 10px;
 }
   
 @media screen and (max-width: 480px) {
     .contenido{
         grid-template-columns: 1fr 1fr;
     }
+}
+
+.card-height{
+    height: 750px;
 }

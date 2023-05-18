@@ -1,80 +1,227 @@
-<div class="container">
-    <div class="row barrabus">
-        <div class="col barrabus justify-content-start">
-            <button class="btn btn-light btnregresar pi pi-angle-double-left" type="submit" (click)="regresoPrincipal()" ></button>
-        </div>
-        <div class="col barrabus justify-content-end">
-            <div class="row">
-                <div class="col-2"></div>
-                <input class="col-7 form-control me-2 inputbus" type="search" [(ngModel)]='valorBusqueda' placeholder="Buscar" aria-label="Search" id="inputbuscar" required="true">
-                <button class="col-3 btn btnbus pi pi-search" type="submit" (click)="buscar()"></button>
-            </div>
-        </div>
-    </div>
-    <div *ngIf="opcion == 1">
-        <div *ngIf="videosBusqueda.length == 0">
-            <h3>No se encontraron resultados</h3>
-        </div>
-        <div class="contenido" *ngIf="videosBusqueda.length > 0">
-            <div *ngFor="let element of videosBusqueda">
-                <div class="card tarjeta" style="width: 100%; background-color: #00335D; color: whitesmoke;" (click)="cambiarVideoActualBusqueda(element.ID_VIDEO)">
-                    <img [src]="obtenerUrlImagenInicio(element.ENLACE)" class="card-img-top" alt="">
-                    <div class="card-body">
-                      <h5 class="card-title fontnegrita">{{ element.NOMBRE }}</h5>
-                      <p class="card-text">{{element.EXPOSITOR}}</p>
-                      <p class="card-text">{{element.DURACION}} min</p>
-                      <p class="card-text">Publicado el {{obtenerTiempo(element.GRABACION_FECHA)}}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row" *ngIf="opcion != 1">
-        <div id="video-principal" class="col-8">
-            <div id="pantalla" class="video-responsive borde-imagen">
-            </div>
-            <div id="informacion">
-            </div>
-        </div>
-        <div class="col-1"></div>
-        <div class="col-3">
-            <div class="row infocont">
-                <p class="col-9 pcenter">OTROS WEBINARS QUE TE PUEDEN INTERESAR</p>
-                <div class= "col-1" *ngIf="opcionCarrusel != 1">
-                    <button class= "col-1 pi pi-sort-alt botonCarrusel botonsort" (click)="cambiarOrientacion()"></button>
-                </div>
-                <div class= "col-1" *ngIf="opcionCarrusel == 1">
-                    <button class= "col-1 pi pi-sort-alt botonCarrusel botonsort" (click)="cambiarOrientacionBusqueda()"></button>
-                </div>
-            </div>
-            <button class= "pi pi-angle-up botonflecha botonCarrusel" (click)="cambiarAnteriorPagina()"></button>
-            <div *ngIf="opcionCarrusel != 1">
-                <div id="carrusel" *ngFor="let element of elementosVisibles">
-                    <div class="card tarjeta" style="width: 100%; background-color: #00335D; color: whitesmoke;" (click)="cambiarVideoActual(element.idVideo)">
-                        <img [src]="obtenerUrlImagenInicio(element.enlace)" class="card-img-top" alt="">
-                        <div class="card-body">
-                          <h5 class="card-title fontnegrita">{{ element.nombre }}</h5>
-                          <p class="card-text">{{element.expositor}}</p>
-                          <p class="card-text">{{element.duracion}} min</p>
-                          <p class="card-text">Publicado el {{obtenerTiempo(element.grabacionFecha)}}</p>
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+
+            <div class="card card-user border-top-avatar shadow mb-4">
+
+                <div class="card-body">
+
+                    <div class="row">
+
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+
+                            <br>
+                            <div class="row barrabus">
+                                <div class="col barrabus justify-content-start">
+                                    <div class="msg-entrance">
+                                        <a class="icon-nav btnregresar" (click)="regresoPrincipal()">
+                                            <i class="fi fi-rr-angle-double-left"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col barrabus justify-content-end">
+                                    <div class="row">
+                                        <div class="col-2"></div>
+                                        <input class="col-7 form-control me-2 inputbus" type="search"
+                                            [(ngModel)]='valorBusqueda' placeholder="Buscar" aria-label="Search"
+                                            (keydown.enter)="buscar()" id="inputbuscar" required="true">
+                                        <button class="col-3 btn btnbus pi pi-search" type="submit"
+                                            (click)="buscar()"></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div *ngIf="opcionCarrusel == 1">
-                <div id="carrusel" *ngFor="let element of elementosVisibles">
-                    <div class="card tarjeta" style="width: 100%; background-color: #00335D; color: whitesmoke;" (click)="cambiarVideoActualBusqueda(element.ID_VIDEO)">
-                        <img [src]="obtenerUrlImagenInicio(element.ENLACE)" class="card-img-top" alt="">
-                        <div class="card-body">
-                          <h5 class="card-title fontnegrita">{{ element.NOMBRE }}</h5>
-                          <p class="card-text">{{element.EXPOSITOR}}</p>
-                          <p class="card-text">{{element.DURACION}} min</p>
-                          <p class="card-text">Publicado el {{obtenerTiempo(element.GRABACION_FECHA)}}</p>
+
+                        <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="opcion != 1">
+
+                            <div class="row container-fluid">
+
+                                <div class="col-lg-9 col-md-9 col-sm-12 col-12 card-height">
+
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <br>
+                                            <div id="video-principal">
+                                                <div id="pantalla" class="video-responsive">
+                                                </div>
+                                                <div id="informacion" *ngIf="videoActual && opcion != 1">
+                                                    <h6>WEBINARS UNIVERSALES</h6>
+                                                    <h1><strong>{{videoActual.nombre}}</strong></h1>
+                                                    <p>{{videoActual.descripcion}}</p>
+                                                    <p-divider></p-divider>
+                                                    <div class="row">
+                                                        <p class="pi pi-user col-1"></p>
+                                                        <p class="col-10">{{videoActual.expositor}}</p>
+                                                    </div>
+                                                    <div class="row">
+                                                        <p class="pi pi-clock col-1"></p>
+                                                        <p class="col-10">{{videoActual.duracion}} min</p>
+                                                    </div>
+                                                </div>
+                                                <div id="informacion" *ngIf="videoActual && opcion == 1">
+                                                    <h6>WEBINARS UNIVERSALES</h6>
+                                                    <h1><strong>{{videoActual.NOMBRE}}</strong></h1>
+                                                    <p>{{videoActual.DESCRIPCION}}</p>
+                                                    <p-divider></p-divider>
+                                                    <div class="row">
+                                                        <p class="pi pi-user col-1"></p>
+                                                        <p class="col-10">{{videoActual.EXPOSITOR}}</p>
+                                                    </div>
+                                                    <div class="row">
+                                                        <p class="pi pi-clock col-1"></p>
+                                                        <p class="col-10">{{videoActual.DURACION}} min</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-sm-12 col-12 card-height" style="overflow-y: auto;">
+
+                                    <div class="row infocont">
+                                        <p class="col-9 pcenter">OTROS WEBINARS QUE TE PUEDEN INTERESAR</p>
+                                        <div class="col-1" *ngIf="opcionCarrusel != 1">
+                                            <button class="col-1 pi pi-sort-alt botonCarrusel botonsort"
+                                                (click)="cambiarOrientacion()"></button>
+                                        </div>
+                                        <div class="col-1" *ngIf="opcionCarrusel == 1">
+                                            <button class="col-1 pi pi-sort-alt botonCarrusel botonsort"
+                                                (click)="cambiarOrientacionBusqueda()"></button>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 ">
+
+                                            <button class="pi pi-angle-up botonflecha botonCarrusel"
+                                                (click)="cambiarAnteriorPagina()"></button>
+                                            <div *ngIf="opcionCarrusel != 1">
+                                                <div id="carrusel" *ngFor="let element of elementosVisibles">
+                                                    <div class="card card-user border-top-img shadow mb-4"
+                                                        (click)="cambiarVideoActual(element.idVideo)">
+                                                        <img [src]="obtenerUrlImagenInicio(element.enlace)"
+                                                            class="card-img-top pad-img" alt="">
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                                                    <h4 class="card-title fontnegrita">{{ element.nombre
+                                                                        }}</h4>
+                                                                    <div class="row">
+                                                                        <p class="pi pi-user col-1"></p>
+                                                                        <p class="col-10">{{element.expositor}}</p>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <p class="pi pi-clock col-1"></p>
+                                                                        <p class="col-10">{{element.duracion}} min</p>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <p class="pi pi-calendar col-1"></p>
+                                                                        <p class="col-10">
+                                                                            {{obtenerTiempo(element.grabacionFecha)}}
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div *ngIf="opcionCarrusel == 1">
+                                                <div id="carrusel" *ngFor="let element of elementosVisibles">
+                                                    <div class="card card-user border-top-img shadow mb-4"
+                                                        (click)="cambiarVideoActualBusqueda(element.ID_VIDEO)">
+                                                        <img [src]="obtenerUrlImagenInicio(element.ENLACE)"
+                                                            class="card-img-top pad-img" alt="">
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                                                    <h4 class="card-title fontnegrita">{{ element.NOMBRE
+                                                                        }}</h4>
+                                                                    <div class="row">
+                                                                        <p class="pi pi-user col-1"></p>
+                                                                        <p class="col-10">{{element.EXPOSITOR}}</p>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <p class="pi pi-clock col-1"></p>
+                                                                        <p class="col-10">{{element.DURACION}} min</p>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <p class="pi pi-calendar col-1"></p>
+                                                                        <p class="col-10">
+                                                                            {{obtenerTiempo(element.GRABACION_FECHA)}}
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button class="pi pi-angle-down botonflecha botonCarrusel"
+                                                (click)="cambiarSiguientePagina()"></button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+
+
                         </div>
+
+                        <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="opcion == 1">
+                            <div *ngIf="videosBusqueda.length == 0">
+                                <h3>No se encontraron resultados</h3>
+                            </div>
+                            <div class="contenido" *ngIf="videosBusqueda.length > 0">
+                                <div *ngFor="let element of videosBusqueda">
+                                    <div class="card card-user border-top-img shadow mb-4"
+                                        (click)="cambiarVideoActualBusqueda(element.ID_VIDEO)">
+                                        <img [src]="obtenerUrlImagenInicio(element.ENLACE)" class="card-img-top pad-img"
+                                            alt="">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                                    <h4 class="card-title fontnegrita">{{ element.NOMBRE }}</h4>
+                                                    <div class="row">
+                                                        <p class="pi pi-user col-1"></p>
+                                                        <p class="col-10">{{element.EXPOSITOR}}</p>
+                                                    </div>
+                                                    <div class="row">
+                                                        <p class="pi pi-clock col-1"></p>
+                                                        <p class="col-10">{{element.DURACION}} min</p>
+                                                    </div>
+                                                    <div class="row">
+                                                        <p class="pi pi-calendar col-1"></p>
+                                                        <p class="col-10">{{obtenerTiempo(element.GRABACION_FECHA)}}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
                     </div>
+
+
+
+
                 </div>
+
             </div>
-            <button class="pi pi-angle-down botonflecha botonCarrusel" (click)="cambiarSiguientePagina()"></button>
+
         </div>
+
     </div>
+
 </div>

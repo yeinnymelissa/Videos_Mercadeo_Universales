@@ -1,50 +1,62 @@
-<div class="container">
-    <div *ngIf="opcion == 1">
-        <div class="mb-3 row">
-            <h3 class="col-sm-7">Actualizar datos de contacto</h3>
-            <button type="button" class="btn btn-success col-sm-2" (click)="actualizarContactoBoton()" type="submit">Actualizar</button>
-            <button type="button" class="btn btn-danger col-sm-2"  (click)="cancelarOperacion()" type="submit">Cancelar</button>
-        </div>
-        <div class="mb-3 row">
-            <label for="inputTelefono" class="col-sm-2 col-form-label">Telefono</label>
-            <div class="col-sm-3">
-                <input type="text" [(ngModel)]='telefono' class="form-control" id="inputTelefono" required="true">
+<div class="container-fluid">
+    <br>
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+
+            <div class="card card-user">
+
+                <div class="image">
+
+                    <img src="assets/img/wall-seguni.jpg" alt="...">
+
+                </div>
+
+                <div class="card-body border-top-avatar">
+
+                    <div class="row">
+
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="mb-3 row">
+                                <div class="col-sm-11"></div>
+                                <p-button class="col-sm-1" icon="pi pi-file-edit" type="submit"
+                                    (click)="abrirFormulario()"></p-button>
+                            </div>
+                            <div class="card">
+                                <div class="row">
+
+                                    <p-table [value]="contacto" [tableStyle]="{ 'min-width': '50rem' }">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                <th style="width:25%; text-align: center;"></th>
+                                                <th style="width:25%; text-align: center;">Telefono</th>
+                                                <th style="width:25%; text-align: center;">Whatsapp</th>
+                                                <th style="width:25%; text-align: center;">Correo</th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-contacto>
+                                            <tr>
+                                                <td style="text-align: center;"><i class="fi fi-rr-circle-user"></i></td>
+                                                <td style="text-align: center;">{{ contacto.telefono }}</td>
+                                                <td style="text-align: center;">{{ contacto.whatsapp }}</td>
+                                                <td style="text-align: center;">{{ contacto.correo }}</td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+
+                                </div>
+                                
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
             </div>
-        </div>
-        <div class="mb-3 row">
-            <label for="inputWhats" class="col-sm-2 col-form-label">Whatsapp</label>
-            <div class="col-sm-3">
-                <input type="text" [(ngModel)]='whatsapp' class="form-control" id="inputWhats" required="true">
-            </div>
-        </div>
-        <div class="mb-3 row">
-            <label for="inputCorreo" class="col-sm-2 col-form-label">Correo</label>
-            <div class="col-sm-3">
-                <input type="text" [(ngModel)]='correo' class="form-control" id="inputCorreo" required="true">
-            </div>
-        </div>
-    </div>
-    <div class="card">
-        <div class="mb-3 row">
-            <div class="col-sm-11"></div>
-            <p-button class="col-sm-1" icon="pi pi-file-edit" type="submit" (click)="actualizarContacto()"></p-button>
+
         </div>
 
-        <table class="table">
-            <thead>
-              <tr>
-                <th style="width:25%; text-align: center;">Telefono</th>
-                <th style="width:25%; text-align: center;">Whatsapp</th>
-                <th style="width:25%; text-align: center;">Correo</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let contac of contacto">
-                <td style="text-align: center;">{{ contac.telefono }}</td>
-                <td style="text-align: center;">{{ contac.whatsapp }}</td>
-                <td style="text-align: center;">{{ contac.correo }}</td>
-              </tr>
-            </tbody>
-          </table>
     </div>
+
 </div>

@@ -1,0 +1,35 @@
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="card card-stats">
+            <div class="card-header-dialog mb-4"> <a class="close-btn" (click)="dialogRef.close()"> <i
+                        class="fi fi-rr-cross-circle text-white icon-size"></i> </a>
+                <h5 class="card-title">Actualizar Contacto</h5>
+            </div>
+            <div class="card-body">
+                <div class="row" style="display: flex; justify-content: center;">
+                    <div class="col-lg-12">
+                        <form [formGroup]="contactoGroup">
+                            <span class="p-float-label mb-4">
+                                <input pInputText id="telefono" formControlName="telefono" />
+                                <label htmlFor="telefono">Telefono</label>
+                            </span>
+                            <span class="p-float-label mb-4">
+                                <input pInputText id="whatsapp" formControlName="whatsapp" />
+                                <label htmlFor="whatsapp">Whatsapp</label>
+                            </span>
+                            <span class="p-float-label mb-4">
+                                <input pInputText id="correo" formControlName="correo" />
+                                <label htmlFor="correo">Correo</label>
+                            </span>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <hr>
+                <div class="stats"> <button [disabled]="!contactoGroup.valid" mat-raised-button class="button-ac"
+                        (click)="actualizarContactoBoton()"><mat-icon>done</mat-icon>Actualizar</button> </div>
+            </div>
+        </div>
+    </div>
+</div>

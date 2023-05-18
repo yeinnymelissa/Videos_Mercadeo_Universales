@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { GenericApiService } from 'src/app/_services/generic-api.service';
 import { MessageService } from 'primeng/api';
+import { MatDialog } from '@angular/material/dialog';
+import { FormularioContactoComponent } from '../dialogs/formulario-contacto/formulario-contacto.component';
 
 @Component({
   selector: 'app-contactos',
@@ -9,12 +11,10 @@ import { MessageService } from 'primeng/api';
 })
 export class ContactosComponent {
   contacto:any[];
-  telefono:String = "";
-  whatsapp:String = "";
-  correo:String = "";
-  opcion:number = 0;
 
-  constructor(private servicio:GenericApiService, private messageService: MessageService){
+  dialogRef: any;
+
+  constructor(private dialog: MatDialog, private servicio:GenericApiService, private messageService: MessageService){
     this.contacto = []
   }
 
@@ -31,44 +31,24 @@ export class ContactosComponent {
 
   llenarContacto(res:any){
     this.contacto = [res]
-    this.telefono = res.telefono
-    this.whatsapp = res.whatsapp
-    this.correo = res.correo
   }
 
-  cancelarOperacion(){
-    this.opcion = 0
-  }
+  abrirFormulario(){
+    this.dialogRef = this.dialog.open(FormularioContactoComponent, {
 
-  actualizarContacto(){
-    this.opcion = 1
-  }
-
-  actualizarContactoBoton(){
-    let contactoModificado = {
-      "telefono": this.telefono,
-      "whatsapp": this.whatsapp,
-      "correo": this.correo
-    }
-
-    let inputTel:any = document.getElementById("inputTelefono");
-    let validoTel = inputTel.reportValidity()
-    let inputWWhat:any = document.getElementById("inputWhats");
-    let validoWhat = inputWWhat.reportValidity()
-    let inputCorreo:any = document.getElementById("inputCorreo");
-    let validoCorreo = inputCorreo.reportValidity()
-
-    if(validoTel && validoWhat && validoCorreo){
-      this.servicio.postUrl("/videos-api/contacto/actualizarDatos", contactoModificado).subscribe(
-        (res: any) => {{
-          this.buscarContacto()
-        }
-  
-        }
-      )
-      this.opcion = 0
-      this.messageService.add({ severity: 'success', summary: 'Actualización de datos de contacto', detail: 'Se actualizaron los datos de contacto con éxito.' });
-
-    }
+       maxWidth: '500px',
+      
+       maxHeight: '500px',
+      
+       data: this.contacto[0] 
+      
+        });
+      
+        this.dialogRef.afterClosed().subscribe(result => {
+      
+      // refresh table ()
+        this.buscarContacto();
+      
+        });
   }
 }
