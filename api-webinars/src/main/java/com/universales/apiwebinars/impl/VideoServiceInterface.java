@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.universales.apiwebinars.dto.VideoDto;
-import com.universales.apiwebinars.entity.Video;
-import com.universales.apiwebinars.entity.VideoTag;
+import com.universales.apiwebinars.entity.WebinarsVideo;
+import com.universales.apiwebinars.entity.WebinarsVideoTag;
 
 
 @RestController
@@ -22,16 +22,16 @@ import com.universales.apiwebinars.entity.VideoTag;
 @CrossOrigin
 public interface VideoServiceInterface {
 	@GetMapping("/fecha")
-	public List<Video> obtenerVideosOrdenados();
+	public List<WebinarsVideo> obtenerVideosOrdenados();
 	
 	@GetMapping("/todos")
-	public List<Video> obtenerTodosOrdenados();
+	public List<WebinarsVideo> obtenerTodosOrdenados();
 	
 	@GetMapping("/porAgrupador/{id}")
-	public List<Video> obtenerPorAgrupador(@PathVariable("id") Integer id);
+	public List<WebinarsVideo> obtenerPorAgrupador(@PathVariable("id") Integer id);
 	
 	@GetMapping("/obtenerId/{id}")
-	public Video obtenerVideoPorId(@PathVariable("id") Integer id);
+	public WebinarsVideo obtenerVideoPorId(@PathVariable("id") Integer id);
 	
 	@PostMapping("/guardarVideo")
 	public void guardarVideo(@RequestBody VideoDto video);
@@ -40,7 +40,7 @@ public interface VideoServiceInterface {
 	public void actualizarVideo(@RequestBody VideoDto video);
 
 	@GetMapping("/tags")
-	public List<VideoTag> obtenerVideosTag();
+	public List<WebinarsVideoTag> obtenerVideosTag();
 	
 	@DeleteMapping("/eliminarPorId/{id}")
 	public boolean eliminarPorId(@PathVariable("id") int id);

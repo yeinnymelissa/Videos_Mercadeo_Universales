@@ -7,26 +7,37 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name="AGRUPADOR_VIDEO", schema = "MERCADEO_VIDEO")
+@Table(name="WEBINARS_VIDEO", schema = "MAIN_REDES_SOCIALES")
 @Data
-public class AgrupadorVideo implements Serializable{
-
-	private static final long serialVersionUID = 8622538428263300570L;
+public class WebinarsVideo implements Serializable{
+	
+	private static final long serialVersionUID = 851192257864751861L;
 	
 	@Id
 	@GeneratedValue(strategy= GenerationType.SEQUENCE,
-		generator="secuenciaAgrupador") 
-	@SequenceGenerator(name="secuenciaAgrupador",sequenceName="sec_agrupador", allocationSize=1, initialValue = 1, schema = "MERCADEO_VIDEO")
-	@Column(name="ID_AGRUPADOR")
-	private int idAgrupador;
+		generator="secuenciaVideos") 
+	@SequenceGenerator(name="secuenciaVideos",sequenceName="WEBINARS_VIDEO_SEQ", allocationSize=1, initialValue = 1, schema = "MAIN_REDES_SOCIALES")
+	@Column(name="ID_VIDEO")
+	private int idVideo;
+	
+	@Column(name="DURACION")
+	private int duracion;
+	
+	@Column(name="EXPOSITOR")
+	private String expositor;
 	
 	@Column(name="NOMBRE")
 	private String nombre;
+	
+	@Column(name="DESCRIPCION")
+	private String descripcion;
 	
 	@Column(name="ESTADO")
 	private char estado;
@@ -42,4 +53,13 @@ public class AgrupadorVideo implements Serializable{
 	
 	@Column(name="MODIFICACION_FECHA")
 	private Date modificacionFecha;
+	
+	@ManyToOne
+	@JoinColumn(name="ID_WEBINARS_AGRUPADOR_VIDEO")
+	private WebinarsAgrupadorVideo webinarsAgrupadorVideo;
+	
+	@Column(name="ENLACE")
+	private String enlace;
+
+	
 }

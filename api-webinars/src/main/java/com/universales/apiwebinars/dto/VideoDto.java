@@ -2,7 +2,7 @@ package com.universales.apiwebinars.dto;
 
 import java.util.Date;
 
-import com.universales.apiwebinars.entity.AgrupadorVideo;
+import com.universales.apiwebinars.entity.WebinarsAgrupadorVideo;
 
 import lombok.Data;
 @Data
@@ -18,7 +18,7 @@ public class VideoDto {
 	private Date grabacionFecha;
 	private String modificacionUsuario;
 	private Date modificacionFecha;
-	private AgrupadorVideo agrupadorVideo;
+	private WebinarsAgrupadorVideo webinarsAgrupadorVideo;
 	private String enlace;
 	private String tags;
 }

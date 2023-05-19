@@ -63,6 +63,7 @@ export class FormularioVideoComponent {
         this.nodes = res;
       }
     )
+    console.log(data)
 
     if(data){
       this.videoGroup.patchValue({
@@ -72,7 +73,7 @@ export class FormularioVideoComponent {
         nombreVideo : data.nombre,
         descripcionVideo : data.descripcion,
         enlaceVideo : data.enlace,
-        selectedNodes : data.agrupadorVideo,
+        selectedNodes : data.webinarsAgrupadorVideo,
         estadoEleccion : {"label" : this.obtenerEstado(data.estado), "id" : data.estado}
       });
       this.servicio.getUrl("/videos-api/tags/obtenerVideosId/"+data.idVideo).subscribe(
@@ -108,7 +109,7 @@ export class FormularioVideoComponent {
       "descripcion": this.videoGroup.value.descripcionVideo,
       "estado": this.videoGroup.value.estadoEleccion.id,
       "modificacionUsuario": this.usuario,
-      "agrupadorVideo": {
+      "webinarsAgrupadorVideo": {
           "idAgrupador": this.videoGroup.value.selectedNodes.idAgrupador
       },
       "enlace": this.videoGroup.value.enlaceVideo,
@@ -135,11 +136,11 @@ export class FormularioVideoComponent {
     
     let tagsVideo = "";
 
-    for (let i = 0; i < this.values.length; i++) {
-      if(i == this.values.length - 1){
-        tagsVideo += this.values[i]
+    for (let i = 0; i < this.videoGroup.value.values.length; i++) {
+      if(i == this.videoGroup.value.values.length - 1){
+        tagsVideo += this.videoGroup.value.values[i]
       }else{
-        tagsVideo += this.values[i] + ";"
+        tagsVideo += this.videoGroup.value.values[i] + ";"
       }
       
     }
@@ -151,12 +152,14 @@ export class FormularioVideoComponent {
       "descripcion": this.videoGroup.value.descripcionVideo,
       "estado": this.videoGroup.value.estadoEleccion.id,
       "grabacionUsuario": this.usuario,
-      "agrupadorVideo": {
-          "idAgrupador": this.videoGroup.value.selectedNodes.id
+      "webinarsAgrupadorVideo": {
+          "idAgrupador": this.videoGroup.value.selectedNodes.idAgrupador
       },
       "enlace": this.videoGroup.value.enlaceVideo,
       "tags": tagsVideo
     }
+    console.log(videoGuardar);
+    
 
     this.servicio.postUrl("/videos-api/videos/guardarVideo", videoGuardar).subscribe(
       (res: any) => {

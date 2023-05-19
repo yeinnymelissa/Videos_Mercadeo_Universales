@@ -10,24 +10,24 @@ import org.springframework.stereotype.Component;
 
 import com.universales.apiwebinars.dto.AgrupadorVideoDto;
 import com.universales.apiwebinars.dto.AgrupadorVideoFormatoDto;
-import com.universales.apiwebinars.entity.AgrupadorVideo;
+import com.universales.apiwebinars.entity.WebinarsAgrupadorVideo;
 import com.universales.apiwebinars.impl.AgrupadorVideoInterface;
-import com.universales.apiwebinars.repository.AgrupadorVideoRepository;
+import com.universales.apiwebinars.repository.WebinarsAgrupadorVideoRepository;
 
 @Component
 public class AgrupadorVideoWS implements AgrupadorVideoInterface{
 	
 	@Autowired
-	AgrupadorVideoRepository avr;
+	WebinarsAgrupadorVideoRepository avr;
 	
 	@Override
-	public List<AgrupadorVideo> obtenerAgrupadores() {
+	public List<WebinarsAgrupadorVideo> obtenerAgrupadores() {
 		return avr.findAll();
 	}
 
 	@Override
 	public void guardarAgrupador(AgrupadorVideoDto agrupador) {
-		AgrupadorVideo av = new AgrupadorVideo();
+		WebinarsAgrupadorVideo av = new WebinarsAgrupadorVideo();
 		av.setIdAgrupador(agrupador.getIdAgrupador());
 		av.setNombre(agrupador.getNombre());
 		av.setEstado(agrupador.getEstado());
@@ -40,7 +40,7 @@ public class AgrupadorVideoWS implements AgrupadorVideoInterface{
 
 	@Override
 	public void actualizarAgrupador(AgrupadorVideoDto agrupador) {
-		Optional<AgrupadorVideo> ag = avr.findById(agrupador.getIdAgrupador());
+		Optional<WebinarsAgrupadorVideo> ag = avr.findById(agrupador.getIdAgrupador());
 		if(ag.isPresent()){
 			ag.get().setIdAgrupador(agrupador.getIdAgrupador());
 			ag.get().setNombre(agrupador.getNombre());
@@ -55,10 +55,10 @@ public class AgrupadorVideoWS implements AgrupadorVideoInterface{
 
 	@Override
 	public List<AgrupadorVideoFormatoDto> obtenerAgrupadoresPorEstado() {
-		List<AgrupadorVideo> agrupadores = avr.findByEstado('A');
+		List<WebinarsAgrupadorVideo> agrupadores = avr.findByEstado('A');
 		List<AgrupadorVideoFormatoDto> formatoAgrupadores = new LinkedList<>();
 		
-		for (AgrupadorVideo agrupador : agrupadores) {
+		for (WebinarsAgrupadorVideo agrupador : agrupadores) {
 			AgrupadorVideoFormatoDto format = new AgrupadorVideoFormatoDto();
 			
 			format.setName(agrupador.getNombre());
@@ -80,8 +80,8 @@ public class AgrupadorVideoWS implements AgrupadorVideoInterface{
 	}
 
 	@Override
-	public AgrupadorVideo obtenerAgrupador(Integer id) {
-		Optional<AgrupadorVideo> ag = avr.findById(id);
+	public WebinarsAgrupadorVideo obtenerAgrupador(Integer id) {
+		Optional<WebinarsAgrupadorVideo> ag = avr.findById(id);
 		if(ag.isPresent()) {
 			return ag.get();
 		}

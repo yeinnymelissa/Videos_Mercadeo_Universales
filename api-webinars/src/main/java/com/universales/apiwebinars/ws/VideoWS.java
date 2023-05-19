@@ -9,13 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.universales.apiwebinars.dto.VideoDto;
-import com.universales.apiwebinars.entity.AgrupadorVideo;
-import com.universales.apiwebinars.entity.Video;
-import com.universales.apiwebinars.entity.VideoTag;
+import com.universales.apiwebinars.entity.WebinarsAgrupadorVideo;
+import com.universales.apiwebinars.entity.WebinarsVideo;
+import com.universales.apiwebinars.entity.WebinarsVideoTag;
 import com.universales.apiwebinars.impl.VideoServiceInterface;
-import com.universales.apiwebinars.repository.AgrupadorVideoRepository;
-import com.universales.apiwebinars.repository.VideoRepository;
-import com.universales.apiwebinars.repository.VideoTagRepository;
+import com.universales.apiwebinars.repository.WebinarsAgrupadorVideoRepository;
+import com.universales.apiwebinars.repository.WebinarsVideoRepository;
+import com.universales.apiwebinars.repository.WebinarsVideoTagRepository;
 import com.universales.apiwebinars.service.VideoService;
 import com.universales.apiwebinars.service.VideoTagService;
 
@@ -23,13 +23,13 @@ import com.universales.apiwebinars.service.VideoTagService;
 @Component
 public class VideoWS implements VideoServiceInterface{
 	@Autowired
-	AgrupadorVideoRepository avr;
+	WebinarsAgrupadorVideoRepository avr;
 	
 	@Autowired
-	VideoRepository vr;
+	WebinarsVideoRepository vr;
 	
 	@Autowired
-	VideoTagRepository vtr;
+	WebinarsVideoTagRepository vtr;
 	
 	@Autowired
 	VideoTagService vts;
@@ -38,13 +38,14 @@ public class VideoWS implements VideoServiceInterface{
 	VideoService vs;
 
 	@Override
-	public List<Video> obtenerVideosOrdenados() {
+	public List<WebinarsVideo> obtenerVideosOrdenados() {
 		return vr.findByEstadoOrderByGrabacionFechaDesc('A');
 	}
 
 	@Override
 	public void guardarVideo(VideoDto video) {
-		Video vid = new Video();
+		System.out.println(video.toString());
+		WebinarsVideo vid = new WebinarsVideo();
 		vid.setDuracion(video.getDuracion());
 		vid.setExpositor(video.getExpositor());
 		vid.setNombre(video.getNombre());
@@ -53,16 +54,19 @@ public class VideoWS implements VideoServiceInterface{
 		vid.setGrabacionUsuario(video.getGrabacionUsuario());
         Date date = new Date();
 		vid.setGrabacionFecha(date);
-		vid.setAgrupadorVideo(video.getAgrupadorVideo());
+		vid.setWebinarsAgrupadorVideo(video.getWebinarsAgrupadorVideo());
 		vid.setEnlace(video.getEnlace());
 		vr.save(vid);
 		if(!video.getTags().equals("") && video.getTags() != null) {
 			String[] items = video.getTags().split(";");
 			for (String item : items) {
 				if(item != null) {
-					VideoTag tag = new VideoTag();
+					WebinarsVideoTag tag = new WebinarsVideoTag();
 					tag.setIdVideo(vid.getIdVideo());
 					tag.setNombreTag(item);
+					tag.setEstado('A');
+					tag.setGrabacionFecha(date);
+					tag.setGrabacionUsuario(video.getGrabacionUsuario());
 					vtr.save(tag);
 				}
 			}
@@ -71,7 +75,7 @@ public class VideoWS implements VideoServiceInterface{
 
 	@Override
 	public void actualizarVideo(VideoDto video) {
-		Optional<Video> vid = vr.findById(video.getIdVideo());
+		Optional<WebinarsVideo> vid = vr.findById(video.getIdVideo());
 		if(vid.isPresent()){
 			vid.get().setDuracion(video.getDuracion());
 			vid.get().setExpositor(video.getExpositor());
@@ -81,14 +85,14 @@ public class VideoWS implements VideoServiceInterface{
 			vid.get().setModificacionUsuario(video.getModificacionUsuario());
 	        Date date = new Date();
 			vid.get().setModificacionFecha(date);
-			vid.get().setAgrupadorVideo(video.getAgrupadorVideo());
+			vid.get().setWebinarsAgrupadorVideo(video.getWebinarsAgrupadorVideo());
 			vid.get().setEnlace(video.getEnlace());
 			vr.save(vid.get());
 			if(!video.getTags().equals("") && video.getTags() != null) {
 				String[] items = video.getTags().split(";");
 				for (String item : items) {
 					if(item != null) {
-						VideoTag tag = new VideoTag();
+						WebinarsVideoTag tag = new WebinarsVideoTag();
 						tag.setIdVideo(vid.get().getIdVideo());
 						tag.setNombreTag(item);
 						vtr.save(tag);
@@ -100,17 +104,17 @@ public class VideoWS implements VideoServiceInterface{
 	}
 
 	@Override
-	public List<VideoTag> obtenerVideosTag() {
+	public List<WebinarsVideoTag> obtenerVideosTag() {
 		return vtr.findAll();
 	}
 
 	@Override
-	public List<Video> obtenerTodosOrdenados() {
+	public List<WebinarsVideo> obtenerTodosOrdenados() {
 		return vr.findAll();
 	}
 
 	@Override
-	public Video obtenerVideoPorId(Integer id) {
+	public WebinarsVideo obtenerVideoPorId(Integer id) {
 		return vr.findByIdVideoEquals(id);
 	}
 
@@ -121,10 +125,10 @@ public class VideoWS implements VideoServiceInterface{
 	}
 
 	@Override
-	public List<Video> obtenerPorAgrupador(Integer id) {
-		Optional<AgrupadorVideo> ag = avr.findById(id);
+	public List<WebinarsVideo> obtenerPorAgrupador(Integer id) {
+		Optional<WebinarsAgrupadorVideo> ag = avr.findById(id);
 		if(ag.isPresent()) {
-			return vr.findByAgrupadorVideoOrderByGrabacionFechaDesc(ag.get());
+			return vr.findByWebinarsAgrupadorVideoOrderByGrabacionFechaDesc(ag.get());
 		}
 		
 		return new ArrayList<>();

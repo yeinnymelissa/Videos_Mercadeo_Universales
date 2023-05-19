@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.universales.apiwebinars.dto.AgrupadorVideoDto;
 import com.universales.apiwebinars.dto.AgrupadorVideoFormatoDto;
-import com.universales.apiwebinars.entity.AgrupadorVideo;
+import com.universales.apiwebinars.entity.WebinarsAgrupadorVideo;
 
 @RestController
 @RequestMapping("/videos-api/agrupadorvideo")
 @CrossOrigin
 public interface AgrupadorVideoInterface {
 	@GetMapping("/obtener")
-	public List<AgrupadorVideo> obtenerAgrupadores();
+	public List<WebinarsAgrupadorVideo> obtenerAgrupadores();
 	
 	@PostMapping("/guardarAgrupador")
 	public void guardarAgrupador(@RequestBody AgrupadorVideoDto agrupador);
@@ -32,5 +32,5 @@ public interface AgrupadorVideoInterface {
 	public List<AgrupadorVideoFormatoDto> obtenerAgrupadoresPorEstado();
 
 	@GetMapping("/obtenerId/{id}")
-	public AgrupadorVideo obtenerAgrupador(@PathVariable("id") Integer id);
+	public WebinarsAgrupadorVideo obtenerAgrupador(@PathVariable("id") Integer id);
 }

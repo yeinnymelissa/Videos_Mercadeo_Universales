@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.universales.apiwebinars.dto.VideoTagDto;
-import com.universales.apiwebinars.entity.Video;
+import com.universales.apiwebinars.entity.WebinarsVideo;
 
 @RestController
 @RequestMapping("/videos-api/tags")
 @CrossOrigin
 public interface VideoTagServiceInterface {
 	@GetMapping("/obtenerVideos/{tag}")
-	public List<Video> obtenerVideos(@PathVariable("tag") String tag);
+	public List<WebinarsVideo> obtenerVideos(@PathVariable("tag") String tag);
 	
 	@GetMapping("/obtenerVideos2/{tag}")
 	public List<Map<String, Object>> obtenerVideos2(@PathVariable("tag") String tag);

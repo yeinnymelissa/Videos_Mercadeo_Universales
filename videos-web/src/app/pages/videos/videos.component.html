@@ -100,8 +100,10 @@
                                     <ng-template pTemplate="body" let-videos>
                                         <tr>
                                             <td>
-                                                <p-button icon="pi pi-file-edit" type="submit"
-                                                    (click)="abrirFormulario(videos)"></p-button>
+                                                <div class="centrar">
+                                                    <p-button icon="pi pi-file-edit" type="submit"
+                                                        (click)="abrirFormulario(videos)"></p-button>
+                                                </div>
                                             </td>
                                             <td>{{ videos.idVideo }}</td>
                                             <td>{{ videos.duracion }}</td>
@@ -109,7 +111,7 @@
                                             <td>{{ videos.nombre }}</td>
                                             <td>{{ videos.descripcion }}</td>
                                             <td>{{ this.obtenerEstado(videos.estado)}}</td>
-                                            <td>{{ videos.agrupadorVideo.nombre }}</td>
+                                            <td>{{ videos.webinarsAgrupadorVideo.nombre }}</td>
                                             <td>{{ videos.enlace }}</td>
                                         </tr>
                                     </ng-template>
