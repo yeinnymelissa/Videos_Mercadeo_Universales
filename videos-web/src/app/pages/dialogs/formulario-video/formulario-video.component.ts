@@ -5,6 +5,8 @@ import { MessageService } from 'primeng/api';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AppSecurityApiService } from 'src/app/_services/app-security-api.service';
 import { AppServiceService } from 'src/app/_services/app-service.service';
+import {MatChipInputEvent} from '@angular/material/chips';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
 
 @Component({
   selector: 'app-formulario-video',
@@ -12,7 +14,8 @@ import { AppServiceService } from 'src/app/_services/app-service.service';
   styleUrls: ['./formulario-video.component.scss']
 })
 export class FormularioVideoComponent {
-
+  addOnBlur = true;
+  readonly separatorKeysCodes = [ENTER, COMMA] as const;
   videoGroup: FormGroup; 
   
   values:any[];
@@ -54,7 +57,7 @@ export class FormularioVideoComponent {
       enlaceVideo : [null, Validators.required],
       selectedNodes : [null, Validators.required],
       estadoEleccion : [null, Validators.required],
-      values : [null, Validators.required],
+      values : [null],
     })
     this.videoGroup.get('idVideo').disable();
 
@@ -63,8 +66,11 @@ export class FormularioVideoComponent {
         this.nodes = res;
       }
     )
-    console.log(data)
 
+    this.videoGroup.patchValue({
+      values : [],
+    });
+    
     if(data){
       this.videoGroup.patchValue({
         idVideo : data.idVideo,
@@ -82,6 +88,55 @@ export class FormularioVideoComponent {
             values : res,
           });
 
+        }
+      )
+    }
+  }
+
+  add(event: MatChipInputEvent): void {
+    const value = (event.value || '').trim();
+
+    // Add our fruit
+    if (value) {
+      if (this.videoGroup.value.idVideo != null && this.videoGroup.value.idVideo != undefined){
+        let tagNuevo = {
+          "id": -1,
+          "idVideo": this.videoGroup.value.idVideo,
+          "nombreTag": value,
+          "estado": "A",
+          "grabacionUsuario": this.usuario
+        };
+        this.videoGroup.value.values.push(tagNuevo);
+
+      }else{
+        let tagNuevo = {
+          "id": -1,
+          "idVideo": -1,
+          "nombreTag": value,
+          "estado": "A",
+          "grabacionUsuario": this.usuario
+        };
+        this.videoGroup.value.values.push(tagNuevo);
+
+      }
+    }
+
+
+    // Clear the input value
+    event.chipInput!.clear();
+  }
+
+  remove(tag: any): void {
+    
+    const index = this.videoGroup.value.values.indexOf(tag);
+
+    if (index >= 0) {
+      this.videoGroup.value.values.splice(index, 1);
+    }
+
+    if(tag.id != null){
+      this.servicio.deleteUrl("/videos-api/tags/eliminarPorIdTag/"+ tag.id).subscribe(
+        (res: any) => {
         }
       )
     }
@@ -113,7 +168,7 @@ export class FormularioVideoComponent {
           "idAgrupador": this.videoGroup.value.selectedNodes.idAgrupador
       },
       "enlace": this.videoGroup.value.enlaceVideo,
-      "tags": tagsVideo
+      "tags": this.videoGroup.value.values
     };
     
 
@@ -133,17 +188,7 @@ export class FormularioVideoComponent {
   }
 
   guardarVideoBoton(){
-    
-    let tagsVideo = "";
 
-    for (let i = 0; i < this.videoGroup.value.values.length; i++) {
-      if(i == this.videoGroup.value.values.length - 1){
-        tagsVideo += this.videoGroup.value.values[i]
-      }else{
-        tagsVideo += this.videoGroup.value.values[i] + ";"
-      }
-      
-    }
 
     let videoGuardar = {
       "duracion": this.videoGroup.value.duracionVideo,
@@ -156,9 +201,8 @@ export class FormularioVideoComponent {
           "idAgrupador": this.videoGroup.value.selectedNodes.idAgrupador
       },
       "enlace": this.videoGroup.value.enlaceVideo,
-      "tags": tagsVideo
+      "tags": this.videoGroup.value.values
     }
-    console.log(videoGuardar);
     
 
     this.servicio.postUrl("/videos-api/videos/guardarVideo", videoGuardar).subscribe(

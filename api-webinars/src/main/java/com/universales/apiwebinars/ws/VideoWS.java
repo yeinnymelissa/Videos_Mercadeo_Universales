@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.universales.apiwebinars.dto.VideoDto;
+import com.universales.apiwebinars.dto.VideoTagDto;
 import com.universales.apiwebinars.entity.WebinarsAgrupadorVideo;
 import com.universales.apiwebinars.entity.WebinarsVideo;
 import com.universales.apiwebinars.entity.WebinarsVideoTag;
@@ -29,7 +30,7 @@ public class VideoWS implements VideoServiceInterface{
 	WebinarsVideoRepository vr;
 	
 	@Autowired
-	WebinarsVideoTagRepository vtr;
+	WebinarsVideoTagRepository videoTagRepo;
 	
 	@Autowired
 	VideoTagService vts;
@@ -44,7 +45,6 @@ public class VideoWS implements VideoServiceInterface{
 
 	@Override
 	public void guardarVideo(VideoDto video) {
-		System.out.println(video.toString());
 		WebinarsVideo vid = new WebinarsVideo();
 		vid.setDuracion(video.getDuracion());
 		vid.setExpositor(video.getExpositor());
@@ -57,18 +57,15 @@ public class VideoWS implements VideoServiceInterface{
 		vid.setWebinarsAgrupadorVideo(video.getWebinarsAgrupadorVideo());
 		vid.setEnlace(video.getEnlace());
 		vr.save(vid);
-		if(!video.getTags().equals("") && video.getTags() != null) {
-			String[] items = video.getTags().split(";");
-			for (String item : items) {
-				if(item != null) {
-					WebinarsVideoTag tag = new WebinarsVideoTag();
-					tag.setIdVideo(vid.getIdVideo());
-					tag.setNombreTag(item);
-					tag.setEstado('A');
-					tag.setGrabacionFecha(date);
-					tag.setGrabacionUsuario(video.getGrabacionUsuario());
-					vtr.save(tag);
-				}
+		for (VideoTagDto tag : video.getTags()) {
+			if(tag.getId() == -1) {
+				WebinarsVideoTag tagAux = new WebinarsVideoTag();
+				tagAux.setIdVideo(vid.getIdVideo());
+				tagAux.setNombreTag(tag.getNombreTag());
+				tagAux.setEstado('A');
+				tagAux.setGrabacionFecha(date);
+				tagAux.setGrabacionUsuario(tag.getGrabacionUsuario());
+				videoTagRepo.save(tagAux);
 			}
 		}
 	}
@@ -88,15 +85,16 @@ public class VideoWS implements VideoServiceInterface{
 			vid.get().setWebinarsAgrupadorVideo(video.getWebinarsAgrupadorVideo());
 			vid.get().setEnlace(video.getEnlace());
 			vr.save(vid.get());
-			if(!video.getTags().equals("") && video.getTags() != null) {
-				String[] items = video.getTags().split(";");
-				for (String item : items) {
-					if(item != null) {
-						WebinarsVideoTag tag = new WebinarsVideoTag();
-						tag.setIdVideo(vid.get().getIdVideo());
-						tag.setNombreTag(item);
-						vtr.save(tag);
-					}
+			
+			for (VideoTagDto tag : video.getTags()) {
+				if(tag.getId() == -1) {
+					WebinarsVideoTag tagAux = new WebinarsVideoTag();
+					tagAux.setIdVideo(video.getIdVideo());
+					tagAux.setNombreTag(tag.getNombreTag());
+					tagAux.setEstado('A');
+					tagAux.setGrabacionFecha(date);
+					tagAux.setGrabacionUsuario(tag.getGrabacionUsuario());
+					videoTagRepo.save(tagAux);
 				}
 			}
 			
@@ -105,7 +103,7 @@ public class VideoWS implements VideoServiceInterface{
 
 	@Override
 	public List<WebinarsVideoTag> obtenerVideosTag() {
-		return vtr.findAll();
+		return videoTagRepo.findAll();
 	}
 
 	@Override

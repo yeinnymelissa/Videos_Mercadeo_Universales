@@ -21,7 +21,7 @@ import com.universales.apiwebinars.service.VideoTagService;
 public class VideoTagsWS implements VideoTagServiceInterface{
 	
 	@Autowired
-	WebinarsVideoTagRepository vtr;
+	WebinarsVideoTagRepository videoTagRepo;
 	
 	@Autowired
 	WebinarsVideoRepository vr;
@@ -31,7 +31,7 @@ public class VideoTagsWS implements VideoTagServiceInterface{
 	
 	@Override
 	public List<WebinarsVideo> obtenerVideos(@PathVariable("tag") String tag) {
-		List<WebinarsVideoTag> listTag = vtr.obtenerPorTag(tag);
+		List<WebinarsVideoTag> listTag = videoTagRepo.obtenerPorTag(tag);
 		
 		List<WebinarsVideo> listVideo = new ArrayList<>();
 		
@@ -54,7 +54,7 @@ public class VideoTagsWS implements VideoTagServiceInterface{
 		vidTag.setIdVideo(tag.getIdVideo());
 		vidTag.setNombreTag(tag.getNombreTag());
 		
-		vtr.save(vidTag);
+		videoTagRepo.save(vidTag);
 		
 	}
 
@@ -64,13 +64,13 @@ public class VideoTagsWS implements VideoTagServiceInterface{
 	}
 
 	@Override
-	public List<String> obtenerVideosId(int id) {
-		List<WebinarsVideoTag> listTagsVideo = vtr.findByIdVideo(id);
-		List<String> listTag = new ArrayList<>();
-		for (WebinarsVideoTag webinarsVideoTag : listTagsVideo) {
-			listTag.add(webinarsVideoTag.getNombreTag());
-		}
-		return listTag;
+	public List<WebinarsVideoTag> obtenerVideosId(int id) {
+		return videoTagRepo.findByIdVideo(id);
+	}
+
+	@Override
+	public void eliminarPorIdTag(int id) {
+		videoTagRepo.deleteById(id);
 	}
 
 }

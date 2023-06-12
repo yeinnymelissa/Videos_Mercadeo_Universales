@@ -1,6 +1,7 @@
 package com.universales.apiwebinars.dto;
 
 import java.util.Date;
+import java.util.List;
 
 import com.universales.apiwebinars.entity.WebinarsAgrupadorVideo;
 
@@ -20,5 +21,5 @@ public class VideoDto {
 	private Date modificacionFecha;
 	private WebinarsAgrupadorVideo webinarsAgrupadorVideo;
 	private String enlace;
-	private String tags;
+	private List<VideoTagDto> tags;
 }

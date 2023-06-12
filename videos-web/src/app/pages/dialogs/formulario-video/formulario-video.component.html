@@ -41,9 +41,21 @@
                                 <p-dropdown [options]="estadoNodo" formControlName="estadoEleccion" class="form-full-width" placeholder="Seleccione una opción" optionLabel="label" inputId="float-label1"></p-dropdown>
                                 <label for="float-label1">Estado</label>
                             </span>
-                            <span class="p-float-label mb-4">
-                                <p-chips formControlName="values" class="form-full-width" id="tags"></p-chips>
-                                <label htmlFor="tags">Tags</label>
+                            <span class=" mb-4">
+                                <mat-label>Tags</mat-label>
+                                <mat-chip-list #chipList aria-label="Tags">
+                                    <mat-chip *ngFor="let value of videoGroup.value.values" (removed)="remove(value)">
+                                    {{value.nombreTag}}
+                                    <button matChipRemove>
+                                        <mat-icon>cancel</mat-icon>
+                                    </button>
+                                    </mat-chip>
+                                    <input placeholder="Nuevo tag..."
+                                        [matChipInputFor]="chipList"
+                                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                        [matChipInputAddOnBlur]="addOnBlur"
+                                        (matChipInputTokenEnd)="add($event)">
+                                </mat-chip-list>
                             </span>
                         </form>
                     </div>
